@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:trilhaapp/pages/dados_cadastrais.dart';
-import 'package:trilhaapp/pages/pagina1.dart';
-import 'package:trilhaapp/pages/pagina2.dart';
-import 'package:trilhaapp/pages/pagina3.dart';
+import 'package:trilhaapp/pages/card_page.dart';
+import 'package:trilhaapp/pages/task_page.dart';
+import 'package:trilhaapp/shared/widgets/custom_drawer.dart';
+
+import 'image_assets.dart';
+import 'list_view.dart';
 
 class MainPage extends StatefulWidget {
-  const MainPage({super.key});
+  const MainPage({Key? key}) : super(key: key);
 
   @override
   State<MainPage> createState() => _MainPageState();
@@ -13,7 +15,7 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   PageController controller = PageController(initialPage: 0);
-  int pagePosition = 0;
+  int posicaoPagina = 0;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -21,61 +23,41 @@ class _MainPageState extends State<MainPage> {
         appBar: AppBar(
           title: const Text("Main Page"),
         ),
-        drawer: Drawer(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                InkWell(
-                  child: Container(
-                      padding: const EdgeInsets.symmetric(vertical: 5),
-                      width: double.infinity,
-                      child: const Text("Dados Cadastrais")),
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const DadosCadastrais(
-                                  text: 'filho',
-                                  data: ['dados1', 'dados2'],
-                                )));
-                  },
-                ),
-                const Divider(),
-                const SizedBox(height: 20),
-                const Text("Configurações"),
-                const Divider(),
-                const SizedBox(height: 20),
-                const Text("Sair")
-              ],
+        drawer: const CustomDrawer(),
+        body: Column(
+          children: [
+            Expanded(
+              child: PageView(
+                controller: controller,
+                onPageChanged: (value) {
+                  setState(() {
+                    posicaoPagina = value;
+                  });
+                },
+                children: const [
+                  CardPage(),
+                  ImageAssetsPage(),
+                  ListViewPage(),
+                  TaskPage()
+                ],
+              ),
             ),
-          ),
+            BottomNavigationBar(
+                onTap: (value) {
+                  controller.jumpToPage(value);
+                },
+                currentIndex: posicaoPagina,
+                items: const [
+                  BottomNavigationBarItem(
+                      label: "Pag1", icon: Icon(Icons.home)),
+                  BottomNavigationBarItem(label: "Pag2", icon: Icon(Icons.add)),
+                  BottomNavigationBarItem(
+                      label: "Pag3", icon: Icon(Icons.person)),
+                  BottomNavigationBarItem(
+                      label: "Pag4", icon: Icon(Icons.task)),
+                ])
+          ],
         ),
-        body: Expanded(
-          child: PageView(
-            controller: controller,
-            onPageChanged: (value) {
-              setState(() {
-                pagePosition = value;
-              });
-            },
-            //scrollDirection: Axis.vertical,
-            children: const [Page1(), Page2(), Page3()],
-          ),
-        ),
-        bottomNavigationBar: BottomNavigationBar(
-            onTap: (value) {
-              controller.jumpToPage(value);
-            },
-            currentIndex: pagePosition,
-            items: const [
-              BottomNavigationBarItem(label: "Pag1", icon: Icon(Icons.home)),
-              BottomNavigationBarItem(label: "Pag2", icon: Icon(Icons.add)),
-              BottomNavigationBarItem(
-                  label: "Pag3", icon: Icon(Icons.exit_to_app))
-            ]),
       ),
     );
   }
