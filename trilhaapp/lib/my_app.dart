@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:trilhaapp/pages/splash_screen/splash_screen.dart';
 
-import 'pages/login_page.dart';
+//import 'pages/login_page.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -10,7 +11,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: const LoginPage(),
+      home: const SplashScreenPage(),
     );
   }
 }

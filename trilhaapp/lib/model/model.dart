@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_getters_setters
+
 class ConfigModel {
   String _username = '';
   double _height = 0;

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:trilhaapp/pages/card_page.dart';
-import 'package:trilhaapp/pages/task_page.dart';
+import 'package:trilhaapp/pages/card/card_page.dart';
+import 'package:trilhaapp/pages/task_pages/task_page.dart';
 import 'package:trilhaapp/shared/widgets/custom_drawer.dart';
 
 import 'image_assets.dart';
-import 'list_view.dart';
+import 'list/list_view.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -43,18 +43,19 @@ class _MainPageState extends State<MainPage> {
               ),
             ),
             BottomNavigationBar(
+                type: BottomNavigationBarType.fixed,
                 onTap: (value) {
                   controller.jumpToPage(value);
                 },
                 currentIndex: posicaoPagina,
                 items: const [
                   BottomNavigationBarItem(
+                      label: "HTTP", icon: Icon(Icons.get_app_rounded)),
+                  BottomNavigationBarItem(
                       label: "Pag1", icon: Icon(Icons.home)),
                   BottomNavigationBarItem(label: "Pag2", icon: Icon(Icons.add)),
                   BottomNavigationBarItem(
                       label: "Pag3", icon: Icon(Icons.person)),
-                  BottomNavigationBarItem(
-                      label: "Pag4", icon: Icon(Icons.task)),
                 ])
           ],
         ),

@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:trilhaapp/model/model.dart';
 import 'package:trilhaapp/repositories/configs_repository.dart';
-import 'package:trilhaapp/services/app_storage_service.dart';
 
 class ConfigPages extends StatefulWidget {
   const ConfigPages({Key? key}) : super(key: key);
